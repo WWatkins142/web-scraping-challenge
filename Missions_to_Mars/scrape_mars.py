@@ -3,6 +3,7 @@
 from splinter import Browser
 from bs4 import BeautifulSoup as soup
 from webdriver_manager.chrome import ChromeDriverManager
+import datetime as dt
 
 # scrape all function
 def scrape_all():
@@ -19,7 +20,9 @@ def scrape_all():
         "newsTitle": news_title,
         "newsParagraph": news_paragaph,
         "featuredImage": scrape_FeaturedImage(browser),
-        "facts": scrape_Facts(browser)
+        "facts": scrape_Facts(browser),
+        "hemispheres": scrape_Hemisperes(browser),
+        "lastUpdated": dt.datetime.now()
     }
 
     # stop webdriver
@@ -95,6 +98,38 @@ def scrape_Facts(browser):
     return Facts
 
 # scrape through Hemisperes pages
+def scrape_Hemisperes(browser):
+    # visit base URL
+    url = 'https://marshemispheres.com/'
+    browser.visit(url)
+
+    # Create a list to hold the images and titles.
+    hemisphere_image_urls = []
+
+    # Next, loop through those links, click the link, find the sample anchor, return the href
+    for i in range(4):
+        # hemisphere information dictionary
+        hemisphereInfo ={}
+        
+        # We have to find the elements on each loop to avoid a stale element exception
+        browser.find_by_css('a.product-item img')[i].click()
+        
+        # Next, we find the Sample image anchor tag and extract the href
+        sample_image = browser.links.find_by_text('Sample').first
+        hemisphereInfo["img.url"] =sample_image['href']
+        
+        # Get Hemisphere title
+        hemisphereInfo['title'] = browser.find_by_css('h2.title').text
+        
+        # Append hemisphere object to list
+        hemisphere_image_urls.append(hemisphereInfo)
+        
+        # Finally, we navigate backwards
+        browser.back()
+
+    # return hemisphere urls with titles
+    return hemisphere_image_urls
+
 
 # set up as Flask App
 if __name__=="__main__":
