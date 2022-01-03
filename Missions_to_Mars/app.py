@@ -13,8 +13,8 @@ mongo = PyMongo(app)
 def index():
     # access information from database
     marsData = mongo.db.marsData.find_one()
-    print(marsData)
-    return "Flask app loaded"
+    #print(marsData)
+    return render_template("index.html", mars=marsData)
 
 @app.route("/scrape")
 def scrape():

@@ -116,7 +116,7 @@ def scrape_Hemisperes(browser):
         
         # Next, we find the Sample image anchor tag and extract the href
         sample_image = browser.links.find_by_text('Sample').first
-        hemisphereInfo["img.url"] =sample_image['href']
+        hemisphereInfo["img_url"] =sample_image['href']
         
         # Get Hemisphere title
         hemisphereInfo['title'] = browser.find_by_css('h2.title').text
