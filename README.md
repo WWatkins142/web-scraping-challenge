@@ -1,5 +1,5 @@
  # Web Scraping Challenge- Mission to Mars
-For this homework I built a web application that scrapes websites for data related to the Mission to Mars and displays the information in a single HTML page.    
+For this project I built a web application that scrapes websites for data related to the Mission to Mars and displays the information in a single HTML page.    
 
 ![Mission_to_Mars_Screenshot](/Mission_to_Mars_Screenshot.png)  
 
